@@ -1,27 +1,50 @@
 # AFFAIR Mosaic Reconstruction (Master Thesis)
 
-This project implements **rigid image registration with global optimization** 
-for mosaic-based reconstruction.
+This project implements **rigid image registration with global optimization** for mosaic-based image reconstruction.  
+It is part of the AFFAIR framework developed during my Master Thesis.
 
 ---
 
 ## Features
-- Modular pipeline (`mosaic/core.py`, `mosaic/pipeline.py`, `mosaic/io.py`)
-- CLI and PyQt GUI interfaces
-- Transformations:
-  - Rotation (0°, 90°, 180°, 270°)
-  - Flipping
-  - Cropping
-  - Zooming (in/out)
-  - Translation (fractional)
-- Multiple similarity metrics:
-  - SSIM
-  - LAB distance
-  - MSE
-  - Hybrid (SSIM – LAB)
-- Downsampling for fast coarse registration
-- Hungarian optimization for global assignment
-- ECC refinement on full resolution
-- Results saved as:
-  - Mosaic image (`results/mosaics/…`)
-  - Parameters JSON + CSV (`results/params/…`)
+- **Modular pipeline**
+  * `mosaic/core.py` – transformations, metrics, ECC refinement  
+  * `mosaic/pipeline.py` – main reconstruction pipeline  
+  * `mosaic/io.py` – image and parameter I/O  
+  * `mosaic/gui.py` – PyQt GUI  
+  * `scripts/run_cli.py` – CLI entry point  
+
+- **Transformations**
+  * Rotation (0°, 90°, 180°, 270°)  
+  * Horizontal flipping  
+  * Cropping (fractional cutouts)  
+  * Zooming (in/out)  
+  * Translation (fractional shifts)  
+
+- **Similarity metrics**
+  * SSIM  
+  * LAB color distance  
+  * MSE  
+  * Hybrid (SSIM – LAB)  
+
+- **Optimization**
+  * Downsampling for fast coarse search (default: 200 px width)  
+  * Hungarian algorithm for global assignment  
+  * ECC refinement on full-resolution tiles  
+
+- **Results**
+  * Mosaic image → `results/mosaics/…`  
+  * Parameters (JSON + CSV) → `results/params/…`  
+
+---
+
+## Usage
+
+### Command Line Interface
+```bash
+python -m scripts.run_cli \
+  --target data/target/lion.png \
+  --tiles data/tiles \
+  --grid 10 \
+  --coarse 200 \
+  --topk 5 \
+  --metric hybrid
