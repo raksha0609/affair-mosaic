@@ -1,8 +1,7 @@
 # AFFAIR Mosaic Reconstruction (Master Thesis)
 
 This project implements **rigid image registration with global optimization** 
-for mosaic-based reconstruction. It is the Python reimplementation of the 
-TurboReg-based pipeline, extended with AI-driven similarity measures.
+for mosaic-based reconstruction.
 
 ---
 
