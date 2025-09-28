@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.pyc
+
+# Results
+results/
+
+# Data (large image sets)
+data/tiles/
+data/target/
+
+# OS/IDE junk
+.DS_Store
+*.swp
+.vscode/
+.idea/
