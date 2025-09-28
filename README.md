@@ -6,7 +6,7 @@ TurboReg-based pipeline, extended with AI-driven similarity measures.
 
 ---
 
-## ✨ Features
+## Features
 - Modular pipeline (`mosaic/core.py`, `mosaic/pipeline.py`, `mosaic/io.py`)
 - CLI and PyQt GUI interfaces
 - Transformations:
