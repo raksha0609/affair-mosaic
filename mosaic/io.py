@@ -1,24 +1,44 @@
 # mosaic/io.py
-import os, cv2, json, csv
+import os
+import json
+import csv
+import cv2
 
 def load_image(path):
     img = cv2.imread(path)
     if img is None:
-        raise FileNotFoundError(path)
+        raise FileNotFoundError(f"Cannot read image: {path}")
     return img
 
-def save_mosaic(img, path):
-    cv2.imwrite(path, img)
+def save_mosaic(img, out_path):
+    os.makedirs(os.path.dirname(out_path) or ".", exist_ok=True)
+    cv2.imwrite(out_path, img)
 
-def save_params_json(records, path):
-    with open(path,"w") as f:
-        json.dump(records,f,indent=2)
+def save_params_json(params, out_path):
+    os.makedirs(os.path.dirname(out_path) or ".", exist_ok=True)
+    # make numpy arrays serializable
+    def default(o):
+        try:
+            import numpy as np
+            if isinstance(o, np.ndarray):
+                return o.tolist()
+        except Exception:
+            pass
+        return str(o)
+    with open(out_path, "w") as f:
+        json.dump(params, f, indent=2, default=default)
 
-def save_params_csv(records, path):
-    if not records: return
+def save_params_csv(records, out_path):
+    os.makedirs(os.path.dirname(out_path) or ".", exist_ok=True)
+    if not records:
+        with open(out_path, "w") as f:
+            f.write("")  # empty file
+        return
     keys = list(records[0].keys())
-    with open(path,"w",newline="") as f:
+    with open(out_path, "w", newline="") as f:
         w = csv.DictWriter(f, fieldnames=keys)
         w.writeheader()
         for r in records:
-            w.writerow(r)
+            # convert lists/tuples to string for CSV
+            r2 = {k: (",".join(map(str, v)) if isinstance(v, (list, tuple)) else v) for k, v in r.items()}
+            w.writerow(r2)
