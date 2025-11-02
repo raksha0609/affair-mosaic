@@ -82,7 +82,11 @@ def verify_runtime(target, tiles, grid=10, coarse=200, metric="hybrid"):
     print(f"  - Params JSON: {res['params_json']}")
     print(f"  - Params CSV: {res['params_csv']}")
     print("=====================================")
+<<<<<<< HEAD
     print(" Verification complete. Everything looks consistent.\n")
+=======
+    print("Verification complete. Everything looks consistent.\n")
+>>>>>>> 69b45d9 (Updated pipeline and GUI integration for AFFAIR Mosaic (excluding phantom evaluation))
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

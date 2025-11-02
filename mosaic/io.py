@@ -1,8 +1,5 @@
 # mosaic/io.py
-import os
-import json
-import csv
-import cv2
+import os, json, csv, cv2
 
 def load_image(path):
     img = cv2.imread(path)
@@ -16,7 +13,6 @@ def save_mosaic(img, out_path):
 
 def save_params_json(params, out_path):
     os.makedirs(os.path.dirname(out_path) or ".", exist_ok=True)
-    # make numpy arrays serializable
     def default(o):
         try:
             import numpy as np
@@ -31,14 +27,24 @@ def save_params_json(params, out_path):
 def save_params_csv(records, out_path):
     os.makedirs(os.path.dirname(out_path) or ".", exist_ok=True)
     if not records:
-        with open(out_path, "w") as f:
-            f.write("")  # empty file
+        open(out_path, "w").close()
         return
     keys = list(records[0].keys())
     with open(out_path, "w", newline="") as f:
         w = csv.DictWriter(f, fieldnames=keys)
         w.writeheader()
         for r in records:
-            # convert lists/tuples to string for CSV
             r2 = {k: (",".join(map(str, v)) if isinstance(v, (list, tuple)) else v) for k, v in r.items()}
             w.writerow(r2)
+
+# --- Project / Resume helpers ---
+def save_project(data, path):
+    os.makedirs(os.path.dirname(path) or ".", exist_ok=True)
+    with open(path, "w") as f:
+        json.dump(data, f, indent=2)
+
+def load_project(path):
+    if not os.path.exists(path):
+        return None
+    with open(path, "r") as f:
+        return json.load(f)
