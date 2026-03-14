@@ -1,0 +1,33 @@
+{
+  "grid_n": 10,
+  "coarse_width": 200,
+  "top_k": 5,
+  "ecc_iter": 100,
+  "alpha": 0.0,
+  "metric": "ncc",
+  "rotations": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "flips": [
+    "Horizontal"
+  ],
+  "crop_fracs": [
+    0.0,
+    0.1,
+    0.2,
+    0.3
+  ],
+  "zooms": [
+    0.8,
+    1.0,
+    1.2
+  ],
+  "translate_fracs": [
+    -0.1,
+    0.0,
+    0.1
+  ]
+}

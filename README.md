@@ -37,6 +37,21 @@ It is part of the AFFAIR framework developed during my Master Thesis.
 
 ---
 
+## Configuration
+
+The project uses a `.env` file for configuration variables. Copy the provided `.env` file and adjust the values as needed.
+
+Available configuration options:
+- `DEBUG`: Enable debug mode (default: False)
+- `DATA_DIR`: Path to data directory (default: data/)
+- `RESULTS_DIR`: Path to results directory (default: results/)
+- `DEFAULT_GRID`: Default grid size (default: 10)
+- `DEFAULT_COARSE`: Default coarse resolution (default: 200)
+- `DEFAULT_METRIC`: Default similarity metric (default: hybrid)
+- `DEFAULT_TOPK`: Default top-k candidates (default: 5)
+
+---
+
 ## Usage
 
 ### Command Line Interface

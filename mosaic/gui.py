@@ -108,33 +108,33 @@ class PipelineWorker(QThread):
     def run(self):
         try:
             def prog_cb(v):
-                try:
-                    vv = int(v)
-                except Exception:
-                    vv = 0
-                vv = max(0, min(100, vv))
-                self.progress.emit(vv)
+                self.progress.emit(int(max(0, min(100, v))))
 
             self.status.emit("Running pipeline...")
             res = run_pipeline(
-                self.cfg['target'], self.cfg['tiles'], self.cfg['out_image'],
-                self.cfg['out_json'], self.cfg['out_csv'],
-                grid_n=self.cfg['grid_n'], coarse_width=self.cfg['coarse_width'],
-                top_k=self.cfg['top_k'], rotations=self.cfg['rotations'],
-                flips=self.cfg['flips'], crop_fracs=self.cfg['crop_fracs'],
-                zooms=self.cfg['zooms'], translate_fracs=self.cfg['translate_fracs'],
-                metric=self.cfg['metric'], ecc_iter=self.cfg['ecc_iter'],
-                ecc_eps=self.cfg['ecc_eps'], alpha=self.cfg['alpha'],
-                resume=self.cfg['resume'], project_path=self.cfg.get('project_path', None),
+                self.cfg["target"], self.cfg["tiles"],
+                self.cfg["out_image"], self.cfg["out_json"], self.cfg["out_csv"],
+                grid_rows=self.cfg["grid_rows"],          # <<< FIXED
+                grid_cols=self.cfg["grid_cols"],          # <<< FIXED
+                coarse_width=self.cfg["coarse_width"],
+                top_k=self.cfg["top_k"],
+                rotations=self.cfg["rotations"],
+                flips=self.cfg["flips"],
+                crop_fracs=self.cfg["crop_fracs"],
+                zooms=self.cfg["zooms"],
+                translate_fracs=self.cfg["translate_fracs"],
+                metric=self.cfg["metric"],
+                ecc_iter=self.cfg["ecc_iter"],
+                ecc_eps=self.cfg["ecc_eps"],
+                alpha=self.cfg["alpha"],
+                resume=self.cfg["resume"],
+                project_path=self.cfg["project_path"],
                 progress_callback=prog_cb
             )
-            # ensure final progress is 100
             self.progress.emit(100)
             self.finished.emit(res or {})
         except Exception as e:
             tb = traceback.format_exc()
-            self.status.emit(f"Error: {e}")
-            # include traceback in returned dict so GUI can present it
             self.finished.emit({"_error": str(e), "_traceback": tb})
 
 
@@ -162,6 +162,7 @@ class MosaicGUI(QWidget):
         self.target_edit = QLineEdit()
         bt_target = QPushButton("Select Target")
         bt_target.clicked.connect(self.select_target)
+
         self.tiles_edit = QLineEdit()
         bt_tiles = QPushButton("Select Tiles Folder")
         bt_tiles.clicked.connect(self.select_tiles)
@@ -169,21 +170,31 @@ class MosaicGUI(QWidget):
         self.project_path_edit = QLineEdit(d.get("project_path", "results/project/affair_project.json"))
         bt_project = QPushButton("Select Project File")
         bt_project.clicked.connect(self.select_project)
+
         self.resume_check = QCheckBox("Resume Previous Run")
         self.resume_check.setChecked(d.get("resume", False))
 
-        # Parameters
-        self.grid_spin = QSpinBox(); self.grid_spin.setRange(2, 60); self.grid_spin.setValue(d.get("grid_n", 10))
+        # ---- Grid (rows/cols)
+        gn = d.get("grid_n", 10)
+        self.grid_rows_spin = QSpinBox()
+        self.grid_rows_spin.setRange(1, 60)
+        self.grid_rows_spin.setValue(d.get("grid_rows", gn))
+
+        self.grid_cols_spin = QSpinBox()
+        self.grid_cols_spin.setRange(1, 60)
+        self.grid_cols_spin.setValue(d.get("grid_cols", gn))
+
+        # ---- Params
         self.coarse_width = QLineEdit(str(d.get("coarse_width", 200)))
         self.topk_spin = QSpinBox(); self.topk_spin.setRange(1, 50); self.topk_spin.setValue(d.get("top_k", 5))
         self.ecc_iter_spin = QSpinBox(); self.ecc_iter_spin.setRange(10, 2000); self.ecc_iter_spin.setValue(d.get("ecc_iter", 100))
         self.alpha_edit = QLineEdit(str(d.get("alpha", 0.0)))
 
         self.metric_combo = QComboBox()
-        self.metric_combo.addItems(["ssim", "hybrid", "mse", "lab", "ncc"])
+        self.metric_combo.addItems(["ssim", "hybrid", "hybrid_edge", "mse", "lab", "ncc"])
         self.metric_combo.setCurrentText(d.get("metric", "hybrid"))
 
-        # Multiselects (default includes vertical)
+        # Multiselects
         rot_opts = [0, 90, 180, 270]
         flips_opts = ["None", "Horizontal", "Vertical"]
         crop_opts = [0.0, 0.05, 0.1, 0.2]
@@ -201,9 +212,10 @@ class MosaicGUI(QWidget):
         form.addRow(bt_tiles, self.tiles_edit)
         form.addRow(bt_project, self.project_path_edit)
         form.addRow("Resume:", self.resume_check)
-        form.addRow("Grid N:", self.grid_spin)
+        form.addRow("Grid Rows:", self.grid_rows_spin)
+        form.addRow("Grid Cols:", self.grid_cols_spin)
         form.addRow("Coarse Width:", self.coarse_width)
-        form.addRow("Top-K:", self.topk_spin)
+        form.addRow("Min candidates per patch:", self.topk_spin)
         form.addRow("ECC Iter:", self.ecc_iter_spin)
         form.addRow("Blend Alpha:", self.alpha_edit)
         form.addRow("Metric:", self.metric_combo)
@@ -292,7 +304,8 @@ class MosaicGUI(QWidget):
     # -----------------------
     def save_params(self):
         params = {
-            "grid_n": self.grid_spin.value(),
+            "grid_rows": self.grid_rows_spin.value(),
+            "grid_cols": self.grid_cols_spin.value(),
             "coarse_width": int(self.coarse_width.text()),
             "top_k": self.topk_spin.value(),
             "ecc_iter": self.ecc_iter_spin.value(),
@@ -313,7 +326,8 @@ class MosaicGUI(QWidget):
         if not d:
             QMessageBox.warning(self, "No file", "No defaults.json found.")
             return
-        self.grid_spin.setValue(d.get("grid_n", 10))
+        self.grid_rows_spin.setValue(d.get("grid_rows", d.get("grid_n", 10)))
+        self.grid_cols_spin.setValue(d.get("grid_cols", d.get("grid_n", 10)))
         self.coarse_width.setText(str(d.get("coarse_width", 200)))
         self.topk_spin.setValue(d.get("top_k", 5))
         self.ecc_iter_spin.setValue(d.get("ecc_iter", 100))
@@ -392,7 +406,9 @@ class MosaicGUI(QWidget):
             "out_image": os.path.join("results", "mosaics", "mosaic_gui_result.jpg"),
             "out_json": os.path.join("results", "params", "mosaic_gui_params.json"),
             "out_csv": os.path.join("results", "params", "mosaic_gui_params.csv"),
-            "grid_n": int(self.grid_spin.value()), "coarse_width": coarse_w,
+            "grid_rows": int(self.grid_rows_spin.value()),
+            "grid_cols": int(self.grid_cols_spin.value()),
+            "coarse_width": coarse_w,
             "top_k": int(self.topk_spin.value()), "rotations": rotations,
             "flips": flips,
             "crop_fracs": crop_fracs, "zooms": zooms, "translate_fracs": translate_fracs,
@@ -430,7 +446,6 @@ class MosaicGUI(QWidget):
     def on_finished(self, res):
         self.start_btn.setEnabled(True)
         self.cancel_btn.setEnabled(False)
-        # If pipeline returned an error dict, show it (traceback included)
         if res is None:
             res = {}
         if "_error" in res:
@@ -443,7 +458,6 @@ class MosaicGUI(QWidget):
         params_json = res.get("params_json") or res.get("params")
         runtime = res.get("time_s", None)
 
-        # check mosaic file presence
         if mosaic_path and os.path.exists(mosaic_path):
             self._set_preview(mosaic_path, self.output_lbl)
             self.status_lbl.setText("Done")
@@ -454,11 +468,9 @@ class MosaicGUI(QWidget):
             self.pbar.setValue(100)
             return
 
-        # --- No mosaic file: gather debug info and show helpful message
+        # Debug info
         debug_lines = []
         debug_lines.append("No mosaic file found after pipeline run.")
-
-        # check project file
         project_path = self.project_path_edit.text().strip()
         if project_path and os.path.exists(project_path):
             try:
@@ -467,7 +479,6 @@ class MosaicGUI(QWidget):
                 candidates = pj.get("candidates", pj.get("cands", []))
                 debug_lines.append(f"Project file exists: {project_path}")
                 debug_lines.append(f"Candidate slots: {len(candidates)}")
-                # sample few candidate counts
                 non_empty = sum(1 for c in candidates if c)
                 debug_lines.append(f"Grid patches with candidates: {non_empty}/{len(candidates)}")
             except Exception as e:
@@ -475,7 +486,6 @@ class MosaicGUI(QWidget):
         else:
             debug_lines.append("No project file saved (or path invalid).")
 
-        # check tiles folder content
         tiles = self.tiles_edit.text().strip()
         if tiles and os.path.isdir(tiles):
             imgs = []
@@ -485,11 +495,9 @@ class MosaicGUI(QWidget):
         else:
             debug_lines.append("Tiles folder missing or invalid.")
 
-        # final user message
         dbgmsg = "\n".join(debug_lines[:20])
         QMessageBox.warning(self, "No mosaic produced", f"No mosaic produced. Debug:\n{dbgmsg}\n\nCheck console/log for more details.")
         self.status_lbl.setText("Finished (no mosaic)")
-        # ensure progress bar reaches at least 100 visually
         self.pbar.setValue(100)
 
 

@@ -3,12 +3,20 @@ __pycache__/
 *.pyc
 *.pyo
 
+# Environment variables
+.env
+
 # Results
 results/
 
 # Data (large image sets)
 data/tiles/
 data/target/
+
+# Synthetic evaluation (ignore all except synthetic_eval_scripts)
+synthetic_eval/*
+!synthetic_eval/synthetic_eval_scripts/
+!synthetic_eval/synthetic_eval_scripts/**
 
 # OS/IDE junk
 .DS_Store

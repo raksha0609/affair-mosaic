@@ -1,0 +1,7 @@
+numpy
+opencv-python
+scikit-image
+scipy
+pandas
+pyqt5
+psutil
