@@ -1,0 +1,508 @@
+{
+  "patches": [
+    {
+      "tile": "tile_020.png",
+      "rotation": 90,
+      "flip_mode": null,
+      "zoom": 1.2,
+      "translate": [
+        -0.1,
+        -0.1
+      ],
+      "grid_pos": [
+        0,
+        0
+      ]
+    },
+    {
+      "tile": "tile_072.png",
+      "rotation": 270,
+      "flip_mode": null,
+      "zoom": 1.0,
+      "translate": [
+        -0.1,
+        0
+      ],
+      "grid_pos": [
+        0,
+        1
+      ]
+    },
+    {
+      "tile": "tile_085.png",
+      "rotation": 270,
+      "flip_mode": null,
+      "zoom": 1.2,
+      "translate": [
+        -0.1,
+        -0.1
+      ],
+      "grid_pos": [
+        0,
+        2
+      ]
+    },
+    {
+      "tile": "tile_026.png",
+      "rotation": 0,
+      "flip_mode": null,
+      "zoom": 1.2,
+      "translate": [
+        0,
+        0.1
+      ],
+      "grid_pos": [
+        0,
+        3
+      ]
+    },
+    {
+      "tile": "tile_079.png",
+      "rotation": 90,
+      "flip_mode": 0,
+      "zoom": 1.0,
+      "translate": [
+        -0.1,
+        -0.1
+      ],
+      "grid_pos": [
+        0,
+        4
+      ]
+    },
+    {
+      "tile": "tile_008.png",
+      "rotation": 180,
+      "flip_mode": null,
+      "zoom": 0.8,
+      "translate": [
+        -0.1,
+        0.1
+      ],
+      "grid_pos": [
+        0,
+        5
+      ]
+    },
+    {
+      "tile": "tile_009.png",
+      "rotation": 0,
+      "flip_mode": 1,
+      "zoom": 1.0,
+      "translate": [
+        0,
+        -0.1
+      ],
+      "grid_pos": [
+        1,
+        0
+      ]
+    },
+    {
+      "tile": "tile_071.png",
+      "rotation": 180,
+      "flip_mode": null,
+      "zoom": 1.2,
+      "translate": [
+        0.1,
+        0
+      ],
+      "grid_pos": [
+        1,
+        1
+      ]
+    },
+    {
+      "tile": "tile_093.png",
+      "rotation": 90,
+      "flip_mode": null,
+      "zoom": 1.2,
+      "translate": [
+        -0.1,
+        -0.1
+      ],
+      "grid_pos": [
+        1,
+        2
+      ]
+    },
+    {
+      "tile": "tile_052.png",
+      "rotation": 270,
+      "flip_mode": null,
+      "zoom": 1.0,
+      "translate": [
+        0.1,
+        0
+      ],
+      "grid_pos": [
+        1,
+        3
+      ]
+    },
+    {
+      "tile": "tile_044.png",
+      "rotation": 0,
+      "flip_mode": null,
+      "zoom": 0.8,
+      "translate": [
+        -0.1,
+        0
+      ],
+      "grid_pos": [
+        1,
+        4
+      ]
+    },
+    {
+      "tile": "tile_066.png",
+      "rotation": 0,
+      "flip_mode": null,
+      "zoom": 1.0,
+      "translate": [
+        0.1,
+        -0.1
+      ],
+      "grid_pos": [
+        1,
+        5
+      ]
+    },
+    {
+      "tile": "tile_086.png",
+      "rotation": 90,
+      "flip_mode": null,
+      "zoom": 1.0,
+      "translate": [
+        0.1,
+        0.1
+      ],
+      "grid_pos": [
+        2,
+        0
+      ]
+    },
+    {
+      "tile": "tile_052.png",
+      "rotation": 270,
+      "flip_mode": null,
+      "zoom": 0.8,
+      "translate": [
+        -0.1,
+        0.1
+      ],
+      "grid_pos": [
+        2,
+        1
+      ]
+    },
+    {
+      "tile": "tile_082.png",
+      "rotation": 270,
+      "flip_mode": 1,
+      "zoom": 0.8,
+      "translate": [
+        0,
+        0
+      ],
+      "grid_pos": [
+        2,
+        2
+      ]
+    },
+    {
+      "tile": "tile_083.png",
+      "rotation": 180,
+      "flip_mode": null,
+      "zoom": 1.2,
+      "translate": [
+        0.1,
+        0.1
+      ],
+      "grid_pos": [
+        2,
+        3
+      ]
+    },
+    {
+      "tile": "tile_061.png",
+      "rotation": 0,
+      "flip_mode": null,
+      "zoom": 1.0,
+      "translate": [
+        0.1,
+        0
+      ],
+      "grid_pos": [
+        2,
+        4
+      ]
+    },
+    {
+      "tile": "tile_095.png",
+      "rotation": 90,
+      "flip_mode": 0,
+      "zoom": 1.2,
+      "translate": [
+        0,
+        -0.1
+      ],
+      "grid_pos": [
+        2,
+        5
+      ]
+    },
+    {
+      "tile": "tile_034.png",
+      "rotation": 180,
+      "flip_mode": 0,
+      "zoom": 1.0,
+      "translate": [
+        0,
+        0
+      ],
+      "grid_pos": [
+        3,
+        0
+      ]
+    },
+    {
+      "tile": "tile_079.png",
+      "rotation": 270,
+      "flip_mode": null,
+      "zoom": 1.2,
+      "translate": [
+        0.1,
+        -0.1
+      ],
+      "grid_pos": [
+        3,
+        1
+      ]
+    },
+    {
+      "tile": "tile_003.png",
+      "rotation": 0,
+      "flip_mode": null,
+      "zoom": 1.2,
+      "translate": [
+        0.1,
+        -0.1
+      ],
+      "grid_pos": [
+        3,
+        2
+      ]
+    },
+    {
+      "tile": "tile_066.png",
+      "rotation": 180,
+      "flip_mode": null,
+      "zoom": 1.0,
+      "translate": [
+        0,
+        -0.1
+      ],
+      "grid_pos": [
+        3,
+        3
+      ]
+    },
+    {
+      "tile": "tile_094.png",
+      "rotation": 0,
+      "flip_mode": null,
+      "zoom": 0.8,
+      "translate": [
+        0,
+        0.1
+      ],
+      "grid_pos": [
+        3,
+        4
+      ]
+    },
+    {
+      "tile": "tile_048.png",
+      "rotation": 180,
+      "flip_mode": 1,
+      "zoom": 1.0,
+      "translate": [
+        0.1,
+        0
+      ],
+      "grid_pos": [
+        3,
+        5
+      ]
+    },
+    {
+      "tile": "tile_072.png",
+      "rotation": 270,
+      "flip_mode": 1,
+      "zoom": 0.8,
+      "translate": [
+        0,
+        0.1
+      ],
+      "grid_pos": [
+        4,
+        0
+      ]
+    },
+    {
+      "tile": "tile_019.png",
+      "rotation": 90,
+      "flip_mode": 0,
+      "zoom": 1.0,
+      "translate": [
+        -0.1,
+        0
+      ],
+      "grid_pos": [
+        4,
+        1
+      ]
+    },
+    {
+      "tile": "tile_064.png",
+      "rotation": 0,
+      "flip_mode": null,
+      "zoom": 1.2,
+      "translate": [
+        0.1,
+        0.1
+      ],
+      "grid_pos": [
+        4,
+        2
+      ]
+    },
+    {
+      "tile": "tile_079.png",
+      "rotation": 90,
+      "flip_mode": 1,
+      "zoom": 0.8,
+      "translate": [
+        0,
+        -0.1
+      ],
+      "grid_pos": [
+        4,
+        3
+      ]
+    },
+    {
+      "tile": "tile_028.png",
+      "rotation": 180,
+      "flip_mode": null,
+      "zoom": 1.2,
+      "translate": [
+        -0.1,
+        0.1
+      ],
+      "grid_pos": [
+        4,
+        4
+      ]
+    },
+    {
+      "tile": "tile_018.png",
+      "rotation": 0,
+      "flip_mode": 0,
+      "zoom": 1.0,
+      "translate": [
+        -0.1,
+        0
+      ],
+      "grid_pos": [
+        4,
+        5
+      ]
+    },
+    {
+      "tile": "tile_056.png",
+      "rotation": 180,
+      "flip_mode": 0,
+      "zoom": 1.2,
+      "translate": [
+        0.1,
+        -0.1
+      ],
+      "grid_pos": [
+        5,
+        0
+      ]
+    },
+    {
+      "tile": "tile_086.png",
+      "rotation": 180,
+      "flip_mode": null,
+      "zoom": 1.0,
+      "translate": [
+        -0.1,
+        -0.1
+      ],
+      "grid_pos": [
+        5,
+        1
+      ]
+    },
+    {
+      "tile": "tile_088.png",
+      "rotation": 90,
+      "flip_mode": null,
+      "zoom": 0.8,
+      "translate": [
+        0,
+        0.1
+      ],
+      "grid_pos": [
+        5,
+        2
+      ]
+    },
+    {
+      "tile": "tile_055.png",
+      "rotation": 270,
+      "flip_mode": null,
+      "zoom": 1.0,
+      "translate": [
+        -0.1,
+        0.1
+      ],
+      "grid_pos": [
+        5,
+        3
+      ]
+    },
+    {
+      "tile": "tile_008.png",
+      "rotation": 180,
+      "flip_mode": null,
+      "zoom": 0.8,
+      "translate": [
+        0.1,
+        -0.1
+      ],
+      "grid_pos": [
+        5,
+        4
+      ]
+    },
+    {
+      "tile": "tile_097.png",
+      "rotation": 0,
+      "flip_mode": null,
+      "zoom": 1.2,
+      "translate": [
+        0,
+        0
+      ],
+      "grid_pos": [
+        5,
+        5
+      ]
+    }
+  ]
+}
