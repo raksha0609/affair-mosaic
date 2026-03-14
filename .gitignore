@@ -13,7 +13,7 @@ results/
 # Data (large image sets)
 data/tiles/
 data/target/
-data/phantoms
+data/phantoms/
 
 # Synthetic evaluation (ignore all except synthetic_eval_scripts)
 synthetic_eval/*

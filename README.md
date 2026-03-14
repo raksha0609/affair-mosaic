@@ -71,13 +71,13 @@ The reconstruction pipeline operates in three sequential stages:
 
 The coarse search evaluates all combinations of:
 
-| Parameter | Default values |
-|-----------|---------------|
-| Rotation | 0°, 90°, 180°, 270° |
-| Flip | none, horizontal |
-| Crop fraction | 0.0 |
-| Zoom | 1.0 |
-| Translation (x, y) | −0.05, 0.0, +0.05 (fractional) |
+| Parameter | Values Tested | Motivation | Effect on Runtime |
+|-----------|--------------|------------|-------------------|
+| Rotation | 0°, 90°, 180°, 270° | Handles unknown orientation and camera rotation in tile datasets | High |
+| Flip | None, Horizontal | Accounts for mirrored acquisition and dataset symmetry | Medium |
+| Translation (x, y) | −0.1, 0.0, +0.1 (relative offsets) | Allows coarse spatial alignment before fine registration | Medium |
+| Crop fraction | 0.0, 0.05, 0.1, 0.2 | Compensates for boundary mismatch and partial overlap | High |
+| Zoom | 0.8, 1.0, 1.2 | Handles scale mismatch between reference and tiles | High |
 
 When the total hypothesis count exceeds `max_coarse_ops` (3 000 000), translations are symmetrically subsampled to keep coarse search tractable.
 
