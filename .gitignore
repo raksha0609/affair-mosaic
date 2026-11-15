@@ -1,27 +1,38 @@
-# Python
+# ---------- Python ----------
 __pycache__/
-*.pyc
-*.pyo
-.env
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ipynb_checkpoints/
 
-# Environment variables
-.env
+# ---------- Virtual environments ----------
+venv/
+.venv/
+env/
 
-# Results
+# ---------- Environment variables / secrets ----------
+.env
+.env.*
+
+# ---------- Results / outputs ----------
 results/
 
-# Data (large image sets)
-data/tiles/
-data/target/
-data/phantoms/
+# ---------- Data (large image sets, kept locally) ----------
+data/
 
-# Synthetic evaluation (ignore all except synthetic_eval_scripts)
+# ---------- Synthetic evaluation (only keep the scripts) ----------
 synthetic_eval/*
 !synthetic_eval/synthetic_eval_scripts/
 !synthetic_eval/synthetic_eval_scripts/**
 
-# OS/IDE junk
+# ---------- Documents (thesis / evaluation write-ups) ----------
+*.docx
+~$*
+
+# ---------- OS / IDE ----------
 .DS_Store
+Thumbs.db
+desktop.ini
 *.swp
 .vscode/
 .idea/
